@@ -91,3 +91,26 @@ For details on all available flags:
 python3 src/tic_tac_toe_game.py --help
 ```
 
+## Unit tests
+
+Activate the virtual environment:
+```bash
+source .venv/bin/activate
+```
+
+Install DEV dependencies (`pytest` and `pytest-cov`):
+```bash
+pip install -r requirements-dev.txt
+
+```
+
+Run unit tests:
+```bash
+pytest
+```
+
+Run unit tests & check test-coverage:
+```bash
+pytest --cov=src tests/
+```
+
