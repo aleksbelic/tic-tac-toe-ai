@@ -176,7 +176,7 @@ if __name__ == '__main__':
         game.data_file_path = Path(args.data_file)
 
     if game.train_mode:
-        print('Training mode enabled.')
+        print('Training mode enabled - running self-play episodes...')
 
         for episode in range(args.episodes):
             while not game.is_game_over():
@@ -189,7 +189,11 @@ if __name__ == '__main__':
 
             game.reset()
 
-        print(f'Training completed.\nQ-table states count: {game.get_q_table_states_count()}')
+            if (episode + 1) % max(1, args.episodes // 10) == 0:
+                percentage = ((episode + 1) / args.episodes) * 100
+                print(f' * {episode + 1}/{args.episodes} ({percentage:.1f}%) completed')
+
+        print(f'Training completed!\nQ-table states count: {game.get_q_table_states_count()}')
 
     else:
         while not game.is_game_over():

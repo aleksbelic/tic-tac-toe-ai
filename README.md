@@ -9,7 +9,7 @@ A simple Tic-tac-toe implementation with a Q-learning agent. This repository dem
 **Quick stats**
 - Regular states (including empty board): `5478`
 - Non-terminal states: `4400`
-- Example training used: `50,000` random games
+- Example training used: `100,000` random games
 
 ## Repository structure
 
@@ -28,43 +28,64 @@ No external packages are required; the project uses only the Python standard lib
 
 ## Usage
 
-Run the game script to start a simple interactive session or to run training/play routines implemented in `src/tic_tac_toe_game.py`:
+### Play interactive mode
+
+Run without flags to play human vs AI:
 
 ```bash
-python3 src/tic_tac_toe_game.py <OPTIONAL_FLAGS>
+python3 src/tic_tac_toe_game.py
 ```
 
-Depending on the script's CLI or hardcoded behavior, it may: train the agent, load a saved Q-table, or allow human vs AI play.
+The AI will use the Q-table from `data/q_table.json` (if available) to play optimally.
+
+### Train the agent
+
+Run with `--train` to train the agent via self-play. Training displays progress with percentages:
+
+```bash
+python3 src/tic_tac_toe_game.py --train --episodes 20000
+```
+
+Sample training output:
+
+```
+Training mode enabled - running self-play episodes...
+ * 2000/20000 (10.0%) completed
+ * 4000/20000 (20.0%) completed
+ * 6000/20000 (30.0%) completed
+ ...
+Training completed!
+Q-table states count: 4400
+```
 
 ### Command-line flags
 
-- **--train**: Enable `training mode`. When present, the script runs episodes of self-play and updates the Q-table file.
-- **--episodes**: Number of training episodes to run (default: 10). Use `--episodes 1000` to run 1,000 episodes.
-- **--data-file**: Path to the Q-table JSON file to read/write (overrides the default `data/q_table.json`).
+- **--train**: Enable training mode. Runs self-play episodes and updates the Q-table file. Without this flag, the script launches interactive play mode.
+- **--episodes**: Number of training episodes (default: 10, but 20,000+ recommended for a strong agent).
+- **--data-file**: Path to the Q-table JSON file to read/write (overrides default `data/q_table.json`).
 
-Example — train for 50,000 episodes and write to a specific file:
+Example — train for 20,000 episodes and save to a custom file:
 
 ```bash
-python3 src/tic_tac_toe_game.py --train --episodes 1000 --data-file data/my_q_table.json
+python3 src/tic_tac_toe_game.py --train --episodes 20000 --data-file data/my_q_table.json
 ```
 
 ## Training
 
 The agent uses Q-learning to estimate action values for board states. To train the agent:
 
-- Run the training routine defined in `src/tic_tac_toe_game.py`.
-- Training will produce or update a Q-table file under `data/q_table.json`.
-
-Tip: Increase the number of training episodes for a stronger agent; training is fast for Tic-tac-toe.
+- Run with `--train --episodes N` where N is the number of episodes.
+- Training will produce or update the Q-table file (`data/q_table.json` by default).
+- Progress is displayed as percentage completion every 10% of episodes.
 
 ## Files of interest
 
 - `src/tic_tac_toe_game.py`: core game loop, environment, and Q-learning agent.
 - `data/q_table.json`: example trained Q-table you can load for play without retraining.
 
-## Help
+## Getting help
 
-Get more info on optional flags via command:
+For details on all available flags:
 
 ```bash
 python3 src/tic_tac_toe_game.py --help
