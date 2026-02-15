@@ -78,6 +78,7 @@ class TicTacToeGame:
 
     def make_random_move(self) -> None:
         possible_moves = self.get_possible_moves_for_state(self.current_state)
+        
         if len(possible_moves) > 0:
             move = random.choice(possible_moves)
             self.history.append((self.current_state.copy(), move, self.current_player))
@@ -91,6 +92,8 @@ class TicTacToeGame:
             self.history.append((self.current_state.copy(), best_move, self.current_player))
             self.current_state[best_move] = self.current_player
             self.current_player = 'O' if self.current_player == 'X' else 'X'
+        else:
+            self.make_random_move()
 
     def save_current_state_to_q_table(self) -> None:
         q_table_states = self.load_q_table()
@@ -146,7 +149,7 @@ class TicTacToeGame:
 
             state_key = ''.join(state_before_move)
 
-            if state_key not in q_table_states:
+            if state_key not in q_table_states and self.EMPTY in state_before_move:
                 q_table_states[state_key] = self.generate_possible_moves_values_for_state(state_before_move)
 
             q_table_states[state_key][move] = round(q_table_states[state_key][move] + reward, 3)
