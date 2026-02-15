@@ -9,7 +9,7 @@ A simple Tic-tac-toe implementation with a Q-learning agent. This repository dem
 **Quick stats**
 - Regular states (including empty board): `5478`
 - Non-terminal states: `4400`
-- Example training used: `100,000` random games
+- Example training used: `120,000` random games
 
 ## Repository structure
 
