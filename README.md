@@ -13,12 +13,19 @@ A simple Tic-tac-toe implementation with a Q-learning agent. This repository dem
 
 ## Repository structure
 
-- `src/`
-	- `tic_tac_toe_game.py` — main game and agent implementation
-- `data/`
-	- `q_table.json` — trained Q-table (example)
-	- `q_table_empty.json` — empty Q-table template
-- `tests/` — project tests
+```
+tic-tac-toe-ai				<— project root
+├── src
+│   └── tic_tac_toe_game.py <— main game and agent implementation
+├── data
+│   ├── q_table.json 		<— trained Q-table
+│   └── q_table_empty.json	<— empty Q-table template 
+├── tests
+|   └── ... 				<— unit tests for game and agent
+├── requirements-dev.txt	<— development dependencies
+├── pytest.ini				<— pytest configuration 
+...
+```
 
 ## Requirements
 
