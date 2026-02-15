@@ -2,5 +2,6 @@
 
 ### Stats
 
-- `5478` regular states in Tic tac toe game (`5477` if we don't count an empty board)
-- `4400` non–terminal states (no winner, no draw)
+- There are `5478` regular states in Tic-tac-toe game (including empty board)
+- There are `4400` non–terminal states (game not finished)
+- This model was trained on `10 000` random games
