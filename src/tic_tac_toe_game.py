@@ -1,4 +1,5 @@
 import json
+import argparse
 from pathlib import Path
 from typing import Literal, Optional
 import random
@@ -162,18 +163,25 @@ class TicTacToeGame:
 
 
 if __name__ == '__main__':
-    game = TicTacToeGame(train_mode = False)
+    parser = argparse.ArgumentParser(description='Tic-tac-toe with a simple Q-learning agent')
+    parser.add_argument('--train', action='store_true', help='Enable training mode')
+    parser.add_argument('--episodes', metavar='N', type=int, default=10, help='Number of training episodes (default: 10)')
+    parser.add_argument('--data-file', type=str, help='Path to Q-table JSON file (overrides default "data/q_table.json")')
+
+    args = parser.parse_args()
+
+    game = TicTacToeGame(train_mode = args.train)
+
+    if args.data_file:
+        game.data_file_path = Path(args.data_file)
 
     if game.train_mode:
-        print(f'Training mode enabled.\nCurrent Q-table states count: {game.get_q_table_states_count()}')
+        print('Training mode enabled.')
 
-        for _ in range(10):
-
+        for episode in range(args.episodes):
             while not game.is_game_over():
-                game.print_state()
                 game.make_random_move()
 
-            game.print_state()
             winner = game.get_winner()
 
             if winner is not None:
@@ -181,7 +189,7 @@ if __name__ == '__main__':
 
             game.reset()
 
-        print(f'Training completed.\nUpdated Q-table states count: {game.get_q_table_states_count()}')
+        print(f'Training completed.\nQ-table states count: {game.get_q_table_states_count()}')
 
     else:
         while not game.is_game_over():
