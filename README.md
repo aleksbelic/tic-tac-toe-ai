@@ -122,6 +122,6 @@ Run unit tests:
 
 Run unit tests & check test-coverage:
 ```bash
-(.venv): pytest --cov=src tests/
+(.venv): pytest -v --cov=src
 ```
 
